@@ -43,8 +43,8 @@ endfunction
 
 augroup numbertoggle
   autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | endif
 augroup END
 
 " Define or override some highlight groups
@@ -109,8 +109,8 @@ function! s:handle_large_file() abort
     " turning off relative number helps a lot
     set norelativenumber
     setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1
-  else
-    set eventignore-=all relativenumber
+  " else
+  "   set eventignore-=all relativenumber
   endif
 endfunction
 
