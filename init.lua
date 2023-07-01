@@ -4,19 +4,24 @@
 -- I would not recommend cloning this repo and replace your own config. Good configurations are personal,
 -- built over time with a lot of polish.
 --
--- Author: Jie-dong Hao
+-- Author: Jiedong Hao
 -- Email: jdhao@hotmail.com
 -- Blog: https://jdhao.github.io/
+-- GitHub: https://github.com/jdhao
+-- StackOverflow: https://stackoverflow.com/users/6064933/jdhao
+vim.loader.enable()
 
 local api = vim.api
-local utils = require("utils")
+local version = vim.version
 
 -- check if we have the latest stable version of nvim
-local expected_ver = "0.8.1"
-local nvim_ver = utils.get_nvim_version()
+local expected_ver = "0.9.1"
+local ev = version.parse(expected_ver)
+local actual_ver = version()
 
-if nvim_ver ~= expected_ver then
-  local msg = string.format("Unsupported nvim version: expect %s, but got %s instead!", expected_ver, nvim_ver)
+if version.cmp(ev, actual_ver) ~= 0 then
+  local _ver = string.format("%s.%s.%s", actual_ver.major, actual_ver.minor, actual_ver.patch)
+  local msg = string.format("Unsupported nvim version: expect %s, but got %s instead!", expected_ver, _ver)
   api.nvim_err_writeln(msg)
   return
 end

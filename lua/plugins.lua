@@ -43,9 +43,6 @@ end
 
 packer.startup {
   function(use)
-    -- it is recommended to put impatient.nvim before any other plugins
-    use { "lewis6991/impatient.nvim", config = [[require('impatient')]] }
-
     use { "wbthomason/packer.nvim", opt = true }
 
     use { "onsails/lspkind-nvim", event = "VimEnter" }
@@ -137,7 +134,7 @@ packer.startup {
     use { "tanvirtin/monokai.nvim", opt = true }
     use { "marko-cerovac/material.nvim", opt = true }
 
-    use { "kyazdani42/nvim-web-devicons", event = "VimEnter" }
+    use { "nvim-tree/nvim-web-devicons", event = "VimEnter" }
 
     use {
       "nvim-lualine/lualine.nvim",
@@ -151,7 +148,7 @@ packer.startup {
       config = [[require('config.bufferline')]] }
 
     -- fancy start screen
-    use { "glepnir/dashboard-nvim", event = "VimEnter",
+    use { "nvimdev/dashboard-nvim", event = "VimEnter",
       cond = firenvim_not_active,
       config = [[require('config.dashboard-nvim')]]
     }
@@ -208,10 +205,14 @@ packer.startup {
     -- Show undo history visually
     use { "simnalamburt/vim-mundo", cmd = { "MundoToggle", "MundoShow" } }
 
+    -- better UI for some nvim actions
+    use {'stevearc/dressing.nvim'}
+
     -- Manage your yank history
-    if vim.g.is_win or vim.g.is_mac then
-      use { "svermeulen/vim-yoink", event = "VimEnter" }
-    end
+    use({
+      "gbprod/yanky.nvim",
+      config = [[require('config.yanky')]]
+    })
 
     -- Handy unix command inside Vim (Rename, Move etc.)
     use { "tpope/vim-eunuch", cmd = { "Rename", "Delete" } }
@@ -354,14 +355,14 @@ packer.startup {
 
     -- file explorer
     use {
-      "kyazdani42/nvim-tree.lua",
-      requires = { "kyazdani42/nvim-web-devicons" },
+      "nvim-tree/nvim-tree.lua",
+      requires = { "nvim-tree/nvim-web-devicons" },
       config = [[require('config.nvim-tree')]],
     }
 
     use { "ii14/emmylua-nvim", ft = "lua" }
 
-    use { "j-hui/fidget.nvim", after = "nvim-lspconfig", config = [[require('config.fidget-nvim')]] }
+    use { "j-hui/fidget.nvim", after = "nvim-lspconfig", tag = "legacy", config = [[require('config.fidget-nvim')]] }
   end,
   config = {
     max_jobs = 16,

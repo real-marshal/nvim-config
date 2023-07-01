@@ -109,6 +109,20 @@ let g:Lf_PopupColorscheme = 'gruvbox_material'
 " items.
 let g:Lf_CommandMap = {'<C-J>': ['<C-N>'], '<C-K>': ['<C-P>']}
 
+" do not preview results, it will add the file to buffer list
+let g:Lf_PreviewResult = {
+      \ 'File': 0,
+      \ 'Buffer': 0,
+      \ 'Mru': 0,
+      \ 'Tag': 0,
+      \ 'BufTag': 1,
+      \ 'Function': 1,
+      \ 'Line': 0,
+      \ 'Colorscheme': 0,
+      \ 'Rg': 0,
+      \ 'Gtags': 0
+      \}
+
 """"""""""""""""""""""""""""open-browser.vim settings"""""""""""""""""""
 if g:is_win || g:is_mac
   " Disable netrw's gx mapping.
@@ -136,31 +150,6 @@ let g:mundo_verbose_graph = 0
 let g:mundo_width = 80
 
 nnoremap <silent> <Space>u :MundoToggle<CR>
-
-""""""""""""""""""""""""""""vim-yoink settings"""""""""""""""""""""""""
-if g:is_win || g:is_mac
-  " ctrl-n and ctrl-p will not work if you add the TextChanged event to vim-auto-save events.
-  " nmap <c-n> <plug>(YoinkPostPasteSwapBack)
-  " nmap <c-p> <plug>(YoinkPostPasteSwapForward)
-
-  " The following p/P mappings are also needed for ctrl-n and ctrl-p to work
-  " nmap p <plug>(YoinkPaste_p)
-  " nmap P <plug>(YoinkPaste_P)
-
-  " Cycle the yank stack with the following mappings
-  nmap [y <plug>(YoinkRotateBack)
-  nmap ]y <plug>(YoinkRotateForward)
-
-  " Do not change the cursor position
-  nmap y <plug>(YoinkYankPreserveCursorPosition)
-  xmap y <plug>(YoinkYankPreserveCursorPosition)
-
-  " Move cursor to end of paste after multiline paste
-  let g:yoinkMoveCursorToEndOfPaste = 0
-
-  " Record yanks in system clipboard
-  let g:yoinkSyncSystemClipboardOnFocus = 1
-endif
 
 """"""""""""""""""""""""""""better-escape.vim settings"""""""""""""""""""""""""
 let g:better_escape_interval = 200
