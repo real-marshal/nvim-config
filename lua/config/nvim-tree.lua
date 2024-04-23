@@ -4,26 +4,19 @@ local nvim_tree = require("nvim-tree")
 nvim_tree.setup {
   auto_reload_on_write = true,
   disable_netrw = false,
-  hijack_cursor = false,
   hijack_netrw = true,
+  hijack_cursor = false,
   hijack_unnamed_buffer_when_opening = false,
   open_on_tab = false,
   sort_by = "name",
   update_cwd = false,
   view = {
     width = 30,
-    hide_root_folder = false,
     side = "left",
     preserve_window_proportions = false,
     number = false,
     relativenumber = false,
     signcolumn = "yes",
-    mappings = {
-      custom_only = false,
-      list = {
-        -- user mappings go here
-      },
-    },
   },
   renderer = {
     indent_markers = {
@@ -85,7 +78,7 @@ nvim_tree.setup {
         enable = true,
         chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
         exclude = {
-          filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+          filetype = { "notify", "qf", "diff", "fugitive", "fugitiveblame" },
           buftype = { "nofile", "terminal", "help" },
         },
       },

@@ -1,16 +1,16 @@
 scriptencoding utf-8
 
 " Plugin specification and lua stuff
-lua require('plugins')
+lua require('plugin_specs')
 
 " Use short names for common plugin manager commands to simplify typing.
 " To use these shortcuts: first activate command line with `:`, then input the
 " short alias, e.g., `pi`, then press <space>, the alias will be expanded to
 " the full command automatically.
-call utils#Cabbrev('pi', 'PackerInstall')
-call utils#Cabbrev('pud', 'PackerUpdate')
-call utils#Cabbrev('pc', 'PackerClean')
-call utils#Cabbrev('ps', 'PackerSync')
+call utils#Cabbrev('pi', 'Lazy install')
+call utils#Cabbrev('pud', 'Lazy update')
+call utils#Cabbrev('pc', 'Lazy clean')
+call utils#Cabbrev('ps', 'Lazy sync')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                      configurations for vim script plugin                  "
@@ -42,7 +42,7 @@ let g:Lf_UseMemoryCache = 0
 
 " Ignore certain files and directories when searching files
 let g:Lf_WildIgnore = {
-  \ 'dir': ['.git', '__pycache__', '.DS_Store'],
+  \ 'dir': ['.git', '__pycache__', '.DS_Store', '*_cache'],
   \ 'file': ['*.exe', '*.dll', '*.so', '*.o', '*.pyc', '*.jpg', '*.png',
   \ '*.gif', '*.svg', '*.ico', '*.db', '*.tgz', '*.tar.gz', '*.gz',
   \ '*.zip', '*.bin', '*.pptx', '*.xlsx', '*.docx', '*.pdf', '*.tmp',
@@ -401,7 +401,7 @@ function! s:wilder_init() abort
           \ 'apply_incsearch_fix': 0,
           \ }))
   catch /^Vim\%((\a\+)\)\=:E117/
-    echohl Error |echomsg "Wilder.nvim missing: run :PackerSync to fix."|echohl None
+    echohl Error |echomsg "Wilder.nvim missing"| echohl None
   endtry
 endfunction
 

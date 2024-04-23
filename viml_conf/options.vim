@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 " change fillchars for folding, vertical split, end of buffer, and message separator
-set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
+set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾,diff:╱
 
 " Split window below/right when creating horizontal/vertical windows
 set splitbelow splitright
@@ -72,7 +72,7 @@ set scrolloff=3
 " Use mouse to select and resize windows, etc.
 set mouse=nic  " Enable mouse in several mode
 set mousemodel=popup  " Set the behaviour of mouse
-set mousescroll=ver:1,hor:6
+set mousescroll=ver:1,hor:0
 
 " Disable showing current mode on command line since statusline plugins can show it.
 set noshowmode

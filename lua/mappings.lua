@@ -170,7 +170,7 @@ keymap.set("n", "<Down>", "<C-W>j")
 keymap.set({ "x", "o" }, "iu", "<cmd>call text_obj#URL()<cr>", { desc = "URL text object" })
 
 -- Text objects for entire buffer
-keymap.set({ "x", "o" }, "iB", "<cmd>call text_obj#Buffer()<cr>", { desc = "buffer text object" })
+keymap.set({ "x", "o" }, "iB", ":<C-U>call text_obj#Buffer()<cr>", { desc = "buffer text object" })
 
 -- Do not move my cursor when joining lines.
 keymap.set("n", "J", function()
@@ -179,17 +179,17 @@ keymap.set("n", "J", function()
       delmarks z
     ]])
 end, {
-  desc = "join line",
+  desc = "join lines without moving cursor",
 })
 
 keymap.set("n", "gJ", function()
   -- we must use `normal!`, otherwise it will trigger recursive mapping
   vim.cmd([[
-      normal! zmgJ`z
+      normal! mzgJ`z
       delmarks z
     ]])
 end, {
-  desc = "join visual lines",
+  desc = "join lines without moving cursor",
 })
 
 -- Break inserted text into smaller undo units when we insert some punctuation chars.
@@ -200,20 +200,6 @@ end
 
 -- insert semicolon in the end
 keymap.set("i", "<A-;>", "<Esc>miA;<Esc>`ii")
-
--- Keep cursor position after yanking
-keymap.set("n", "y", "myy")
-
-api.nvim_create_autocmd("TextYankPost", {
-  pattern = "*",
-  group = api.nvim_create_augroup("restore_after_yank", { clear = true }),
-  callback = function()
-    vim.cmd([[
-      silent! normal! `y
-      silent! delmarks y
-    ]])
-  end,
-})
 
 -- Go to the beginning and end of current line in insert mode quickly
 keymap.set("i", "<C-A>", "<HOME>")

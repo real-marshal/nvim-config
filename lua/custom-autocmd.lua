@@ -17,11 +17,30 @@ api.nvim_create_autocmd({ "BufRead" }, {
 })
 
 -- highlight yanked region, see `:h lua-highlight`
+local yank_group = api.nvim_create_augroup("highlight_yank", { clear = true })
 api.nvim_create_autocmd({ "TextYankPost" }, {
   pattern = "*",
-  group = api.nvim_create_augroup("highlight_yank", { clear = true }),
+  group = yank_group,
   callback = function()
     vim.highlight.on_yank { higroup = "YankColor", timeout = 300 }
+  end,
+})
+
+api.nvim_create_autocmd({ "CursorMoved" }, {
+  pattern = "*",
+  group = yank_group,
+  callback = function()
+    vim.g.current_cursor_pos = vim.fn.getcurpos()
+  end,
+})
+
+api.nvim_create_autocmd("TextYankPost", {
+  pattern = "*",
+  group = yank_group,
+  callback = function(ev)
+    if vim.v.event.operator == 'y' then
+      vim.fn.setpos('.', vim.g.current_cursor_pos)
+    end
   end,
 })
 
@@ -64,3 +83,23 @@ api.nvim_create_autocmd("VimResized", {
   desc = "autoresize windows on resizing operation",
   command = "wincmd =",
 })
+
+local function open_nvim_tree(data)
+  -- check if buffer is a directory
+  local directory = vim.fn.isdirectory(data.file) == 1
+
+  if not directory then
+    return
+  end
+
+  -- create a new, empty buffer
+  vim.cmd.enew()
+
+  -- wipe the directory buffer
+  vim.cmd.bw(data.buf)
+
+  -- open the tree
+  require("nvim-tree.api").tree.open()
+end
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
